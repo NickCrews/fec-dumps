@@ -5,9 +5,6 @@ on:
     - cron: '0 0 * * 0' # Every week on Sunday at 00:00
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   generate-matrices:
     runs-on: ubuntu-latest
@@ -63,7 +60,7 @@ jobs:
         # We rely on bash to strip the literal quotes from the matrix table name string
         run: ./process-table.sh a ${{ matrix.table }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
   process-sched-b:
     needs: generate-matrices
@@ -90,4 +87,4 @@ jobs:
         # We rely on bash to strip the literal quotes from the matrix table name string
         run: ./process-table.sh b ${{ matrix.table }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}

@@ -3,18 +3,13 @@
 Cron job that publishes .parquet files of the Schedule A and Schedule B
 tables of the FEC database.
 
-NOTE: turns out you can't publish files larger than 2GB to gitub releases on the free plan.
-I'm looking into workarounds now.
-
----
-
 See https://github.com/fecgov/FEC/issues/13168 for motivation.
 
-All of the tables are published as parquet files to https://github.com/NickCrews/fec-dump-parquets/releases/tag/latest
-by a github action every week.
+All of the tables are published as parquet files to the Hugging Face dataset
+https://huggingface.co/datasets/NickCrews/fec-dumps by a github action every week.
 In duckdb you can get the 1985-1986 Schedule A data with simply
-`SELECT * FROM 'https://github.com/NickCrews/fec-dump-parquets/releases/download/latest/disclosure.fec_fitem_sched_a_1985_1986.parquet'`!
-The action overwrites the assets of the `latest` release tag, so the url will stay stable
+`SELECT * FROM 'https://huggingface.co/datasets/NickCrews/fec-dumps/resolve/main/disclosure.fec_fitem_sched_a_1985_1986.parquet'`!
+The action overwrites the files on `main`, so the url will stay stable
 over time, but the data will change every week.
 
 Note that columns in the parquets are all strings.
